@@ -1,4 +1,5 @@
 const app = require('express')();
+const cors = require('cors');
 const http = require('http').createServer();
 
 app.use(cors());
