@@ -1,5 +1,3 @@
-const app = require('express')();
-const cors = require('cors');
 const http = require('http').createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 });
