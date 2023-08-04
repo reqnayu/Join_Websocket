@@ -1,17 +1,17 @@
-const app = require('express')();
+// const app = require('express')();
 
 const http = require('http').createServer();
 
 
-app.use(function(req, res, next) {
-    console.log(req.header("Access-Control-Allow-Origin"));
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-});
+// app.use(function(req, res, next) {
+//     console.log(req.header("Access-Control-Allow-Origin"));
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     next();
+// });
 
 const io = require('socket.io')(http, {
-    cors: { origin: "*" }
+    cors: { origin: "*:*" }
 });
 
 let users = {};
