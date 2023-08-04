@@ -1,7 +1,12 @@
 // const app = require('express')();
 
 // const http = require('http').createServer();
-const http = require('https').createServer();
+
+const options = {
+    requestCert: false,
+    rejectUnauthorized: false
+}
+const http = require('https').createServer(options);
 
 
 // app.use(function(req, res, next) {
