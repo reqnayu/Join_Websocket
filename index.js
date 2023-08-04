@@ -17,7 +17,7 @@ const http = require('https').createServer(options);
 // });
 
 const io = require('socket.io')(http, {
-    cors: { origin: "*" },
+    cors: { origin: "*:*" },
     methods: ["GET", "POST"]
 });
 
