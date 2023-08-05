@@ -17,12 +17,15 @@ const http = require('https').createServer(options);
 // });
 
 const io = require('socket.io')(http, {
-    cors: { origin: "*:*" },
+    cors: { origin: "https://tarik-uyan.developerakademie.net" },
     methods: ["GET", "POST"]
 });
 
 io.engine.on('initial_headers', (headers, req) => {
-    headers["Access-Control-Allow-Origin"] = "*:*"
+    headers["Access-Control-Allow-Origin"] = "https://tarik-uyan.developerakademie.net"
+});
+io.engine.on('headers', (headers, req) => {
+    headers["Access-Control-Allow-Origin"] = "https://tarik-uyan.developerakademie.net"
 });
 
 io.engine.on("connection_error", (err) => {
