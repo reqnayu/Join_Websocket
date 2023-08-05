@@ -24,11 +24,11 @@ io.on('connection', (socket) => {
 
     socket.on('message', (message) => {
         console.log(`message received!`);
-        const {recipient} = message;
+        const {recipientId} = message;
         console.log(message);
-        if (users[recipient]) {
-            console.log(`sending message to ${uid}!`);
-            users[recipient].emit('message', message);
+        if (users[recipientId]) {
+            console.log(`sending message to ${recipientId}!`);
+            users[recipientId].emit('message');
         }
     });
 
