@@ -6,7 +6,7 @@ const app = express();
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "*"
+    "https://tarik-uyan.developerakademie.net"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
