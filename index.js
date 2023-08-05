@@ -1,4 +1,4 @@
-const app = require('express')();
+// const app = require('express')();
 
 // const http = require('http').createServer();
 
@@ -6,20 +6,31 @@ const options = {
     requestCert: false,
     rejectUnauthorized: false
 }
-const http = require('https').createServer(options, app);
+const http = require('https').createServer(options);
 
 
-app.use(function(req, res, next) {
-    // console.log(req.header("Access-Control-Allow-Origin"));
-    res.setHeader("Access-Control-Allow-Origin", "*:*");
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-});
+// app.use(function(req, res, next) {
+//     // console.log(req.header("Access-Control-Allow-Origin"));
+//     res.setHeader("Access-Control-Allow-Origin", "*:*");
+//     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//     next();
+// });
 
 const io = require('socket.io')(http, {
     cors: { origin: "*:*" },
     methods: ["GET", "POST"]
 });
+
+io.engine.on('initial_headers', (headers, req) => {
+    headers["Access-Control-Allow-Origin"] = "*:*"
+});
+
+io.engine.on("connection_error", (err) => {
+    console.log(err.req);      // the request object
+    console.log(err.code);     // the error code, for example 1
+    console.log(err.message);  // the error message, for example "Session ID unknown"
+    console.log(err.context);  // some additional error context
+  });
 
 let users = {};
 
