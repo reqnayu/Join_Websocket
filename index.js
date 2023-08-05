@@ -1,6 +1,28 @@
-// const app = require('express')();
-
 // const http = require('http').createServer();
+
+const express = require("express");
+const app = express();
+// Set middleware of CORS 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "*"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Private-Network", true);
+  //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
+  res.setHeader("Access-Control-Max-Age", 7200);
+
+  next();
+});
 
 const options = {
     requestCert: false,
@@ -8,24 +30,9 @@ const options = {
 }
 const http = require('https').createServer(options);
 
-
-// app.use(function(req, res, next) {
-//     // console.log(req.header("Access-Control-Allow-Origin"));
-//     res.setHeader("Access-Control-Allow-Origin", "*:*");
-//     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//     next();
-// });
-
 const io = require('socket.io')(http, {
-    cors: { origin: "https://tarik-uyan.developerakademie.net" },
+    cors: { origin: "*" },
     methods: ["GET", "POST"]
-});
-
-io.engine.on('initial_headers', (headers, req) => {
-    headers["Access-Control-Allow-Origin"] = "https://tarik-uyan.developerakademie.net"
-});
-io.engine.on('headers', (headers, req) => {
-    headers["Access-Control-Allow-Origin"] = "https://tarik-uyan.developerakademie.net"
 });
 
 io.engine.on("connection_error", (err) => {
