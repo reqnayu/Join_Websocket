@@ -6,6 +6,8 @@ const options = {
 }
 const http = require('https').createServer(options);
 
+const port = process.env.PORT || 8080;
+
 const io = require('socket.io')(http, {
     cors: { origin: "*" },
     methods: ["GET", "POST"]
@@ -37,4 +39,4 @@ io.on('connection', (socket) => {
     })
 });
 
-http.listen(8080);
+http.listen(port);
