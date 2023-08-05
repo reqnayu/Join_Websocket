@@ -6,7 +6,7 @@ const options = {
 }
 const http = require('https').createServer(options);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 
 const io = require('socket.io')(http, {
     cors: { origin: "*" },
