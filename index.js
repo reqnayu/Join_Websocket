@@ -1,11 +1,5 @@
 const http = require('http').createServer();
 
-const options = {
-    requestCert: false,
-    rejectUnauthorized: false
-}
-// const http = require('https').createServer(options);
-
 const port = process.env.PORT;
 
 const io = require('socket.io')(http, {
@@ -22,15 +16,24 @@ io.on('connection', (socket) => {
     users[uid] = socket;
     console.log(Object.keys(users))
 
-    socket.on('message', (message) => {
-        console.log(`message received!`);
-        const {recipientId} = message;
-        console.log(message);
-        if (users[recipientId]) {
-            console.log(`sending message to ${recipientId}!`);
-            users[recipientId].emit('message');
-        }
+    socket.on('notification', (notification) => {
+        console.log(`notification received!`);
+        const {to} = notification;
+        to.forEach(recipientId => {
+            if (users[recipientId]) {
+                console.log(`sending notification to ${recipientId}!`);
+                if (users.hasOwnProperty(recipientId)) users[recipientId].emit('notification');
+            }   
+        });
     });
+
+    // socket.on('message', ({to}) => {
+    //     io.to(to).emit('message');
+    // });
+
+    // socket.on('chatconnect', (chatId) => {
+    //     socket.join(chatId);
+    // });
 
     socket.on('disconnect', () => {
         console.log('client disconnected!')
