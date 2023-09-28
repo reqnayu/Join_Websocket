@@ -20,6 +20,7 @@ io.on('connection', (socket) => {
     socket.on('notification', (notification) => {
         console.log(`notification received!`);
         const {to} = notification;
+        if (!to) return console.log('no recipients')
         to.forEach(recipientId => {
             if (users[recipientId]) {
                 console.log(`sending notification to ${recipientId}!`);
@@ -27,14 +28,6 @@ io.on('connection', (socket) => {
             }   
         });
     });
-
-    // socket.on('message', ({to}) => {
-    //     io.to(to).emit('message');
-    // });
-
-    // socket.on('chatconnect', (chatId) => {
-    //     socket.join(chatId);
-    // });
 
     socket.on('disconnect', () => {
         console.log('client disconnected!')
