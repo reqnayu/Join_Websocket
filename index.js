@@ -13,7 +13,7 @@ io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
     if (!uid) return;
     console.log(`new client with id '${uid}' connected!`);
-    if (users[uid]) socket.emit('account-in-use');
+    if (users[uid]) return socket.emit('account-in-use');
     users[uid] = socket;
     console.log(Object.keys(users))
 
