@@ -1,5 +1,5 @@
 const http = require('http').createServer();
-const Resend = requiare('resend');
+const Resend = require('resend');
 const resend = Resend('re_jYP2dkzR_9d1n6z7SEHRz5fgeZkE5bGiq');
 
 const port = process.env.PORT;
