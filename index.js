@@ -1,6 +1,6 @@
 const http = require('http').createServer();
-import { Resend } from 'resend';
-const resend = Resend('re_jYP2dkzR_9d1n6z7SEHRz5fgeZkE5bGiq');
+const Resend = require('resend');
+const resend = new Resend('re_jYP2dkzR_9d1n6z7SEHRz5fgeZkE5bGiq');
 
 const port = process.env.PORT;
 
