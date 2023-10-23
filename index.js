@@ -1,5 +1,6 @@
 const http = require('http').createServer();
 const Resend = require('resend');
+log(Resend);
 const resend = new Resend('re_jYP2dkzR_9d1n6z7SEHRz5fgeZkE5bGiq');
 
 const port = process.env.PORT;
@@ -31,9 +32,13 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('mail', (mail) => {
-        resend.emails.send(mail);
-        socket.emit('mail-send');
+    socket.on('mail', async (mail) => {
+        try {
+            await resend.emails.send(mail);
+            socket.emit('mail-sent', true);
+        } catch (e) {
+            socket.emit('mail-sent', false);
+        }
     });
 
     socket.on('disconnect', () => {
