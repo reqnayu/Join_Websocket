@@ -1,6 +1,7 @@
-const http = require('http').createServer();
-const {Resend} = require('resend');
+import {createServer} from 'http';
+import {Resend} from 'resend';
 import {Headers} from 'node-fetch';
+const http = createServer();
 const resend = new Resend('re_jYP2dkzR_9d1n6z7SEHRz5fgeZkE5bGiq');
 
 const port = process.env.PORT;
