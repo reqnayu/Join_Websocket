@@ -53,7 +53,7 @@ mailSetup();
 async function sendEmail({to, subject, html}) {
     
     const mailOptions = {
-        from: USER,
+        from: `Join <${USER}>`,
         to,
         subject,
         html
