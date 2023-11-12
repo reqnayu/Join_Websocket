@@ -25,6 +25,9 @@ const transporter = createTransport({
         pass
         // clientId,
         // clientSecret
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
