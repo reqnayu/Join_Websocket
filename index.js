@@ -18,7 +18,7 @@ const transporter = createTransport({
     secure: true,
     auth: {
         type: "OAuth2",
-        user: process.env.user,
+        user: process.env.USER,
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         accessToken: process.env.ACCESS_TOKEN,
@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
 
     socket.on('mail', async ({to, subject, html}) => {
         const mailOptions = {
-            from: process.env.user,
+            from: process.env.USER,
             to,
             subject,
             html
