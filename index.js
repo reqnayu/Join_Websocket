@@ -12,7 +12,6 @@ const io = new Server(http, {
 
 let users = {}; 
 
-const {user, clientId, clientSecret, pass} = process.env;
 console.log(`user: ${user}, pass: ${pass}`)
 const transporter = createTransport({
     service: 'gmail',
@@ -20,11 +19,9 @@ const transporter = createTransport({
     port: 587,
     secure: false,
     auth: {
-        // type: "OAuth2",
-        user,
-        pass
-        // clientId,
-        // clientSecret
+        type: "login",
+        user: process.env.user,
+        pass: process.env.pass
     },
     tls: {
         rejectUnauthorized: false
