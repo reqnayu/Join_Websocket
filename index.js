@@ -1,10 +1,9 @@
 import {createServer} from 'http';
-import {Resend} from 'resend';
-import {Headers} from 'node-fetch';
+import {nodemailer} from 'nodemailer';
 const http = createServer();
-const resend = new Resend('re_jYP2dkzR_9d1n6z7SEHRz5fgeZkE5bGiq');
 
 const port = process.env.PORT;
+const mail = {...process.env.MAIL}; 
 
 const io = require('socket.io')(http, {
     cors: { origin: "*" },
@@ -12,6 +11,16 @@ const io = require('socket.io')(http, {
 });
 
 let users = {};
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: mail.user,
+        pass: mail.pass
+    }
+});
+
+console.log(mail)
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
@@ -34,12 +43,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('mail', async (mail) => {
-        try {
-            await resend.emails.send(mail);
-            socket.emit('mail-sent', true);
-        } catch (e) {
-            socket.emit('mail-sent', false);
-        }
+        transporter.sendMail(mail, (error, info) => {
+            if (error) return console.log(error);
+            console.log(`Message sent: %s`)
+        })
     });
 
     socket.on('disconnect', () => {
