@@ -24,7 +24,9 @@ const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
 
 // oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
 
-const {user, pass} = createTestAccount();
+const testUser = createTestAccount();
+const {user, pass} = testUser;
+console.dir(testUser)
 console.log(`user: ${user}, pass: ${pass}`)
 // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
 const transporter = createTransport({
