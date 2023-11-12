@@ -4,7 +4,7 @@ import {Server} from 'socket.io';
 const http = createServer();
 
 const port = process.env.PORT;
-const mail = {...process.env.MAIL}; 
+const mail = {...JSON.parse(process.env.MAIL)}; 
 
 const io = new Server(http, {
     cors: { origin: "*" },
@@ -21,7 +21,7 @@ const transporter = createTransport({
     }
 });
 
-console.log(process.env)
+console.log(mail)
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
