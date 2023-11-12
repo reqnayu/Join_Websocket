@@ -16,12 +16,12 @@ import { Resend } from 'resend';
 
 const resend = new Resend('re_CBAbPUuC_DXzD4kH9EHx5qLJfLPr8jAJ1');
 
-resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'musician.tarik@gmx.de',
-  subject: 'Hello World',
-  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-}); 
+// resend.emails.send({
+//   from: 'onboarding@resend.dev',
+//   to: 'musician.tarik@gmx.de',
+//   subject: 'Hello World',
+//   html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+// }); 
 
 // const {user, clientId, clientSecret, pass} = process.env;
 // console.log(`user: ${user}, pass: ${pass}`)
