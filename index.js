@@ -14,17 +14,17 @@ let users = {};
 
 const transporter = createTransport({
     service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    // host: 'smtp.gmail.com',
+    // port: 587,
+    // secure: false,
     auth: {
-        type: "login",
+        // type: "login",
         user: process.env.user,
         pass: process.env.pass
     },
-    tls: {
-        rejectUnauthorized: false
-    }
+    // tls: {
+    //     rejectUnauthorized: false
+    // }
 });
 
 io.on('connection', (socket) => {
