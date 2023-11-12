@@ -1,6 +1,7 @@
 import {createServer} from 'http';
 import {createTransport} from 'nodemailer';
 import {Server} from 'socket.io';
+import {google} from 'googleapis';
 const http = createServer();
 
 const port = process.env.PORT;
@@ -10,24 +11,49 @@ const io = new Server(http, {
     methods: ["GET", "POST"]
 });
 
-let users = {}; 
+let users = {};
 
-const transporter = createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        type: "OAuth2",
-        user: process.env.USER,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        accessToken: process.env.ACCESS_TOKEN,
-        refreshToken: process.env.REFRESH_TOKEN
-    },
-    // tls: {
-    //     rejectUnauthorized: false
-    // }
-});
+const {CLIENT_ID, CLIENT_SECRET, USER} = process.env;
+const REDIRECT_UI = "https://developers.google.com/oauthplayground";
+
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_UI
+)
+
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+
+async function sendEmail({to, subject, html}) {
+
+    const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
+    const transporter = createTransport({
+        service: 'gmail',
+        auth: {
+            type: "OAuth2",
+            user: USER,
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            refreshToken: REFRESH_TOKEN,
+            accessToken: ACCESS_TOKEN
+        },
+        tls: {
+            rejectUnauthorized: true
+        }
+    });
+
+    const mailOptions = {
+        from: USER,
+        to,
+        subject,
+        html
+    }
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) return console.log(error);
+        console.log(`Message sent: %s`)
+    })
+}
+
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
@@ -49,18 +75,7 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('mail', async ({to, subject, html}) => {
-        const mailOptions = {
-            from: process.env.USER,
-            to,
-            subject,
-            html
-        }
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) return console.log(error);
-            console.log(`Message sent: %s`)
-        })
-    });
+    socket.on('mail', sendEmail);
 
     socket.on('disconnect', () => {
         console.log('client disconnected!')
