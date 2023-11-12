@@ -24,13 +24,13 @@ const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
 
 // oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
 
-
+let transporter;
 async function mailSetup() {
     const testUser = await createTestAccount();
     const {user, pass} = testUser;
     console.log(`user: ${user}, pass: ${pass}`)
     // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
-    const transporter = createTransport({
+    transporter = createTransport({
         host: 'smtp.ethereal.email',
         port: 587,
         secure: false,
