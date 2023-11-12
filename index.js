@@ -1,11 +1,12 @@
 import {createServer} from 'http';
 import {createTransport} from 'nodemailer';
+import {Server} from 'socket.io';
 const http = createServer();
 
 const port = process.env.PORT;
 const mail = {...process.env.MAIL}; 
 
-const io = require('socket.io')(http, {
+const io = new Server(http, {
     cors: { origin: "*" },
     methods: ["GET", "POST"]
 });
