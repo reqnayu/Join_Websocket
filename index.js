@@ -47,6 +47,11 @@ async function mailSetup() {
             rejectUnauthorized: false
         }
     });
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) return console.log(error);
+        const res = info.response;
+        console.log(res)
+    });
 }
 mailSetup();
 
@@ -59,10 +64,6 @@ async function sendEmail({to, subject, html}) {
         html
     }
     
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) return console.log(error);
-        console.log(`Message sent, ${info.messageId}`)
-    });
 }
 
 
