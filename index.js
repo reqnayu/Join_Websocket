@@ -33,7 +33,7 @@ async function sendEmail({to, subject, html}) {
         port: 587,
         secure: false,
         auth: {
-            // type: "OAuth2",
+            type: "login",
             user,
             pass
             // clientId: CLIENT_ID,
