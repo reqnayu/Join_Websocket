@@ -12,14 +12,18 @@ const io = new Server(http, {
 
 let users = {};
 
-const {user, clientId, clientSecret} = process.env;
+const {user, clientId, clientSecret, pass} = process.env;
 const transporter = createTransport({
     service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
     auth: {
-        type: "OAuth2",
+        // type: "OAuth2",
         user,
-        clientId,
-        clientSecret
+        pass
+        // clientId,
+        // clientSecret
     }
 });
 
