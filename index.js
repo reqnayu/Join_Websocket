@@ -19,11 +19,11 @@ const transporter = createTransport({
     port: 587,
     secure: false,
     auth: {
-        type: "OAuth2",
+        // type: "OAuth2",
         user,
-        // pass
-        clientId,
-        clientSecret
+        pass
+        // clientId,
+        // clientSecret
     }
 });
 
