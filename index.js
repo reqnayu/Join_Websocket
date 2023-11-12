@@ -13,6 +13,7 @@ const io = new Server(http, {
 let users = {};
 
 import { Resend } from 'resend';
+import { Headers } from 'node-fetch';
 
 const resend = new Resend('re_CBAbPUuC_DXzD4kH9EHx5qLJfLPr8jAJ1');
 
