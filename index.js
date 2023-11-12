@@ -17,14 +17,17 @@ console.log(`user: ${user}, pass: ${pass}`)
 const transporter = createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,
     auth: {
         // type: "OAuth2",
         user,
         pass
         // clientId,
         // clientSecret
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
