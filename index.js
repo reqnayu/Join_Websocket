@@ -13,6 +13,7 @@ const io = new Server(http, {
 let users = {};
 
 const {user, clientId, clientSecret, pass} = process.env;
+console.log(`user: ${user}, pass: ${pass}`)
 const transporter = createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
