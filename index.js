@@ -48,9 +48,12 @@ async function sendEmail({to, subject, html}) {
         subject,
         html
     }
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) return console.log(error);
-        console.log(`Message sent: %s`)
+    
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) reject(error);
+            resolve(info)
+        });
     })
 }
 
@@ -75,7 +78,10 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('mail', sendEmail);
+    socket.on('mail', async (mailOptions) => {
+        const info = await sendEmail(mailOptions);
+        console.log(info)
+    });
 
     socket.on('disconnect', () => {
         console.log('client disconnected!')
