@@ -47,22 +47,22 @@ async function mailSetup() {
             rejectUnauthorized: false
         }
     });
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) return console.log(error);
-        const preview = getTestMessageUrl(info);
-        console.log(preview)
-    });
 }
 mailSetup();
 
 async function sendEmail({to, subject, html}) {
-
+    
     const mailOptions = {
         from: USER,
         to,
         subject,
         html
     }
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) return console.log(error);
+        const preview = getTestMessageUrl(info);
+        console.log(preview)
+    });
     
 }
 
