@@ -13,7 +13,6 @@ const io = new Server(http, {
 let users = {}; 
 
 const transporter = createTransport({
-    service: 'gmail',
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
@@ -26,6 +25,17 @@ const transporter = createTransport({
     //     rejectUnauthorized: false
     // }
 });
+
+const mailOptions = {
+    from: process.env.user,
+    to: "musician.tark@gmx.de",
+    subject: "tst",
+    html: "<b>Hallo!</b>"
+}
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) return console.log(error);
+    console.log(`Message sent: %s`)
+})
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
