@@ -19,6 +19,9 @@ const transporter = createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
+    secureConnection: false,
+    logger: true,
+    debug: true,
     auth: {
         // type: "OAuth2",
         user,
@@ -27,7 +30,7 @@ const transporter = createTransport({
         // clientSecret
     },
     tls: {
-        rejectUnauthorized: false
+        rejectUnAuthorized: true
     }
 });
 
