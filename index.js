@@ -17,25 +17,17 @@ const transporter = createTransport({
     port: 465,
     secure: true,
     auth: {
-        // type: "login",
+        type: "OAuth2",
         user: process.env.user,
-        pass: process.env.pass
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        accessToken: process.env.ACCESS_TOKEN,
+        refreshToken: process.env.REFRESH_TOKEN
     },
     // tls: {
     //     rejectUnauthorized: false
     // }
 });
-
-const mailOptions = {
-    from: process.env.user,
-    to: "musician.tark@gmx.de",
-    subject: "tst",
-    html: "<b>Hallo!</b>"
-}
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) return console.log(error);
-    console.log(`Message sent: %s`)
-})
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
