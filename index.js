@@ -27,8 +27,6 @@ const transporter = createTransport({
     }
 });
 
-console.log(mail)
-
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
     if (!uid) return;
