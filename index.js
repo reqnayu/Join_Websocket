@@ -1,7 +1,7 @@
 import {createServer} from 'http';
-import {createTransport} from 'nodemailer';
+import {createTransport, createTestAccount} from 'nodemailer';
 import {Server} from 'socket.io';
-import {google} from 'googleapis';
+// import {google} from 'googleapis';
 const http = createServer();
 
 const port = process.env.PORT;
@@ -14,32 +14,34 @@ const io = new Server(http, {
 let users = {};
 
 const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
-const REDIRECT_UI = "https://developers.google.com/oauthplayground";
+// const REDIRECT_UI = "https://developers.google.com/oauthplayground";
 
-const oAuth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_UI
-)
+// const oAuth2Client = new google.auth.OAuth2(
+//     CLIENT_ID,
+//     CLIENT_SECRET,
+//     REDIRECT_UI
+// )
 
-oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+// oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
 
 async function sendEmail({to, subject, html}) {
+    const {user, pass} = createTestAccount();
 
-    const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
+    // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
     const transporter = createTransport({
-        service: 'gmail',
+        host: 'smtp.ethereal.email',
         auth: {
-            type: "OAuth2",
-            user: USER,
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
-            refreshToken: REFRESH_TOKEN,
-            accessToken: ACCESS_TOKEN
+            // type: "OAuth2",
+            user,
+            pass
+            // clientId: CLIENT_ID,
+            // clientSecret: CLIENT_SECRET,
+            // refreshToken: REFRESH_TOKEN,
+            // accessToken: ACCESS_TOKEN
         },
-        tls: {
-            rejectUnauthorized: true
-        }
+        // tls: {
+        //     rejectUnauthorized: true
+        // }
     });
 
     const mailOptions = {
@@ -49,12 +51,10 @@ async function sendEmail({to, subject, html}) {
         html
     }
     
-    return new Promise((resolve, reject) => {
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) reject(error);
-            resolve(info)
-        });
-    })
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) return console.log(error);
+        console.log(`Message sent, ${info.messageId}`)
+    });
 }
 
 
