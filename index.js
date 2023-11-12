@@ -1,5 +1,5 @@
 import {createServer} from 'http';
-import {nodemailer} from 'nodemailer';
+import {createTransport} from 'nodemailer';
 const http = createServer();
 
 const port = process.env.PORT;
@@ -12,7 +12,7 @@ const io = require('socket.io')(http, {
 
 let users = {};
 
-const transporter = nodemailer.createTransport({
+const transporter = createTransport({
     service: 'gmail',
     auth: {
         user: mail.user,
