@@ -30,6 +30,8 @@ async function sendEmail({to, subject, html}) {
     // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
     const transporter = createTransport({
         host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false,
         auth: {
             // type: "OAuth2",
             user,
