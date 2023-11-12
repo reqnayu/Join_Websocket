@@ -13,7 +13,7 @@ const io = new Server(http, {
 
 let users = {};
 
-const {CLIENT_ID, CLIENT_SECRET, USER} = process.env;
+const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
 const REDIRECT_UI = "https://developers.google.com/oauthplayground";
 
 const oAuth2Client = new google.auth.OAuth2(
