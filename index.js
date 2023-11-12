@@ -4,8 +4,6 @@ import {Server} from 'socket.io';
 const http = createServer();
 
 const port = process.env.PORT;
-// const mail = {...JSON.parse(process.env.MAIL)}; 
-const mail = process.env.MAIL;
 
 const io = new Server(http, {
     cors: { origin: "*" },
@@ -14,11 +12,14 @@ const io = new Server(http, {
 
 let users = {};
 
+const {user, clientId, clientSecret} = process.env;
 const transporter = createTransport({
     service: 'gmail',
     auth: {
-        user: mail.user,
-        pass: mail.pass
+        type: "OAuth2",
+        user,
+        clientId,
+        clientSecret
     }
 });
 
