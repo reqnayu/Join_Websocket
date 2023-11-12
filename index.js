@@ -14,9 +14,9 @@ let users = {};
 
 const transporter = createTransport({
     service: 'gmail',
-    // host: 'smtp.gmail.com',
-    // port: 587,
-    // secure: false,
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
         // type: "login",
         user: process.env.user,
@@ -47,8 +47,14 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('mail', async (mail) => {
-        transporter.sendMail(mail, (error, info) => {
+    socket.on('mail', async ({to, subject, html}) => {
+        const mailOptions = {
+            from: process.env.user,
+            to,
+            subject,
+            html
+        }
+        transporter.sendMail(mailOptions, (error, info) => {
             if (error) return console.log(error);
             console.log(`Message sent: %s`)
         })
