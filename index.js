@@ -21,7 +21,7 @@ const transporter = createTransport({
     }
 });
 
-console.log(mail)
+console.log(process.env)
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
