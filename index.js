@@ -10,41 +10,29 @@ const io = new Server(http, {
     methods: ["GET", "POST"]
 });
 
-let users = {};
+let users = {}; 
 
-import { Resend } from 'resend';
-import { Headers } from 'node-fetch';
-
-const resend = new Resend('re_CBAbPUuC_DXzD4kH9EHx5qLJfLPr8jAJ1');
-
-// resend.emails.send({
-//   from: 'onboarding@resend.dev',
-//   to: 'musician.tarik@gmx.de',
-//   subject: 'Hello World',
-//   html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-// }); 
-
-// const {user, clientId, clientSecret, pass} = process.env;
-// console.log(`user: ${user}, pass: ${pass}`)
-// const transporter = createTransport({
-//     service: 'gmail',
-//     host: 'smtp.gmail.com',
-//     port: 465,
-//     secure: true,
-//     secureConnection: false,
-//     logger: true,
-//     debug: true,
-//     auth: {
-//         // type: "OAuth2",
-//         user,
-//         pass
-//         // clientId,
-//         // clientSecret
-//     },
-//     tls: {
-//         rejectUnAuthorized: true
-//     }
-// });
+const {user, clientId, clientSecret, pass} = process.env;
+console.log(`user: ${user}, pass: ${pass}`)
+const transporter = createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    secureConnection: false,
+    logger: true,
+    debug: true,
+    auth: {
+        // type: "OAuth2",
+        user,
+        pass
+        // clientId,
+        // clientSecret
+    },
+    tls: {
+        rejectUnAuthorized: true
+    }
+});
 
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
