@@ -26,7 +26,7 @@ const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
 
 async function sendEmail({to, subject, html}) {
     const {user, pass} = createTestAccount();
-
+    console.log(`user: ${user}, pass: ${pass}`)
     // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
     const transporter = createTransport({
         host: 'smtp.ethereal.email',
@@ -41,9 +41,9 @@ async function sendEmail({to, subject, html}) {
             // refreshToken: REFRESH_TOKEN,
             // accessToken: ACCESS_TOKEN
         },
-        // tls: {
-        //     rejectUnauthorized: true
-        // }
+        tls: {
+            rejectUnauthorized: false
+        }
     });
 
     const mailOptions = {
