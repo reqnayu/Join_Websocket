@@ -1,5 +1,5 @@
 import {createServer} from 'http';
-import {createTransport, createTestAccount} from 'nodemailer';
+import {createTransport, createTestAccount, getTestMessageUrl} from 'nodemailer';
 import {Server} from 'socket.io';
 // import {google} from 'googleapis';
 const http = createServer();
@@ -49,8 +49,8 @@ async function mailSetup() {
     });
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) return console.log(error);
-        const res = info.response;
-        console.log(res)
+        const preview = getTestMessageUrl(info);
+        console.log(preview)
     });
 }
 mailSetup();
