@@ -34,12 +34,15 @@ async function sendEmail({to, subject, html}) {
         subject,
         html
     }
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) return console.log(error);
-        console.log("Message sent!")
-        // const preview = getTestMessageUrl(info);
-        // console.log(preview)
-    });
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                reject(error);
+            }
+            resolve()
+        });
+
+    })
     
 }
 
@@ -65,8 +68,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('mail', async (mailOptions) => {
-        const info = await sendEmail(mailOptions);
-        console.log(info)
+        try {
+            await sendEmail(mailOptions);
+            users[uid].emit('mailSent');
+        } catch(e) {
+            users[uid].emit('mailFailed');
+        }
+        
     });
 
     socket.on('disconnect', () => {
