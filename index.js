@@ -3,7 +3,7 @@ import {createTransport} from 'nodemailer';
 import {Server} from 'socket.io';
 const http = createServer();
 
-const {USER, PASS, port} = process.env;
+const {USER, PASS, PORT} = process.env;
 
 const io = new Server(http, {
     cors: { origin: "*" },
@@ -84,6 +84,6 @@ io.on('connection', (socket) => {
     })
 });
 
-http.listen(port, ()=>{
-    console.log(`started on port ${port}`)
+http.listen(PORT, ()=>{
+    console.log(`started on port ${PORT}`)
 });
