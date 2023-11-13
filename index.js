@@ -13,12 +13,12 @@ const io = new Server(http, {
 
 let users = {};
 
-// const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN, PASS} = process.env;
-const CLIENT_ID = "470427326628-ld6u3mi3eh604ipc3g9bb7pj1h69mfku.apps.googleusercontent.com";
-const CLIENT_SECRET = "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";
-const USER = "noreply.info.join@gmail.com"
-const REFRESH_TOKEN = "1//047DtEF64hTClCgYIARAAGAQSNwF-L9IrBX9XDIfjFmHOtmqX0BvcXKkW5qrjGya7fXgiOXbSm2WjJAJeLnN0brCrBNDnsigHJYo"
-const ACCESS_TOKEN = "ya29.a0AfB_byBPuoQIMNuBQclQXfLizhie5EADJ6E8v34_TWq76xf-bgA5kffVxpFBxcy6kvTkzmA7JWITvlB0C-Nfcul7WQFUHJbS3CVAO58R95lyBKmzGgYnHJu5p4Zms-uOEU_kiaK4iJWI9y4GeTAsKmIAMRB93uJuHU2aaCgYKAcQSARESFQHGX2MimpSEkjrdbAF7HOTMcJ8pPQ0171";
+const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN, PASS} = process.env;
+// const CLIENT_ID = "470427326628-ld6u3mi3eh604ipc3g9bb7pj1h69mfku.apps.googleusercontent.com";
+// const CLIENT_SECRET = "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";
+// const USER = "noreply.info.join@gmail.com"
+// const REFRESH_TOKEN = "1//047DtEF64hTClCgYIARAAGAQSNwF-L9IrBX9XDIfjFmHOtmqX0BvcXKkW5qrjGya7fXgiOXbSm2WjJAJeLnN0brCrBNDnsigHJYo"
+// const ACCESS_TOKEN = "ya29.a0AfB_byBPuoQIMNuBQclQXfLizhie5EADJ6E8v34_TWq76xf-bgA5kffVxpFBxcy6kvTkzmA7JWITvlB0C-Nfcul7WQFUHJbS3CVAO58R95lyBKmzGgYnHJu5p4Zms-uOEU_kiaK4iJWI9y4GeTAsKmIAMRB93uJuHU2aaCgYKAcQSARESFQHGX2MimpSEkjrdbAF7HOTMcJ8pPQ0171";
 
 console.log(`user: ${USER}`);
 console.log(`client_id: ${CLIENT_ID}`);
@@ -71,7 +71,7 @@ mailSetup();
 async function sendEmail({to, subject, html}) {
     
     const mailOptions = {
-        from: USER,
+        from: `Join <${USER}>`,
         to,
         subject,
         html
