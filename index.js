@@ -13,7 +13,8 @@ const io = new Server(http, {
 
 let users = {};
 
-const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
+const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN, PASS} = process.env;
+// console.log(USER, PASS)
 // const REDIRECT_UI = "https://developers.google.com/oauthplayground";
 
 // const oAuth2Client = new google.auth.OAuth2(
@@ -26,18 +27,18 @@ const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN} = process.env;
 
 let transporter;
 async function mailSetup() {
-    const testUser = await createTestAccount();
-    const {user, pass} = testUser;
-    console.log(`user: ${user}, pass: ${pass}`)
+    // const testUser = await createTestAccount();
+    // const {user, pass} = testUser;
+    console.log(`user: ${USER}, pass: ${PASS}`)
     // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
     transporter = createTransport({
-        host: 'smtp.ethereal.email',
+        host: 'smtp.gmail.com',
         port: 587,
         secure: false,
         auth: {
-            type: "login",
-            user,
-            pass
+            // type: "login",
+            USER,
+            PASS
             // clientId: CLIENT_ID,
             // clientSecret: CLIENT_SECRET,
             // refreshToken: REFRESH_TOKEN,
