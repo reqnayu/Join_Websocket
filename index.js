@@ -14,35 +14,39 @@ const io = new Server(http, {
 let users = {};
 
 const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN, PASS} = process.env;
-// console.log(USER, PASS)
-// const REDIRECT_UI = "https://developers.google.com/oauthplayground";
+console.log(`user: ${USER}`);
+console.log(`client_id: ${CLIENT_ID}`);
+console.log(`client_secret: ${CLIENT_SECRET}`);
+console.log(`refresh_token: ${REFRESH_TOKEN}`);
 
-// const oAuth2Client = new google.auth.OAuth2(
-//     CLIENT_ID,
-//     CLIENT_SECRET,
-//     REDIRECT_UI
-// )
+const REDIRECT_UI = "https://developers.google.com/oauthplayground";
 
-// oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_UI
+)
+
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
 
 let transporter;
 async function mailSetup() {
     // const testUser = await createTestAccount();
     // const {user, pass} = testUser;
-    console.log(`user: ${USER}, pass: ${PASS}`)
-    // const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
+    const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
+    console.log(`access_token: ${ACCESS_TOKEN}`)
     transporter = createTransport({
         host: 'smtp.gmail.com',
         port: 587,
         secure: false,
         auth: {
-            // type: "login",
+            type: "OAuth2",
             USER,
-            PASS
-            // clientId: CLIENT_ID,
-            // clientSecret: CLIENT_SECRET,
-            // refreshToken: REFRESH_TOKEN,
-            // accessToken: ACCESS_TOKEN
+            // PASS
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            refreshToken: REFRESH_TOKEN,
+            accessToken: ACCESS_TOKEN
         },
         tls: {
             rejectUnauthorized: false
