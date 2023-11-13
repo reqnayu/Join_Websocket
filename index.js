@@ -21,10 +21,11 @@ const {CLIENT_ID, CLIENT_SECRET, USER, REFRESH_TOKEN, PASS, ACCESS_TOKEN} = proc
 // const ACCESS_TOKEN = "ya29.a0AfB_byBPuoQIMNuBQclQXfLizhie5EADJ6E8v34_TWq76xf-bgA5kffVxpFBxcy6kvTkzmA7JWITvlB0C-Nfcul7WQFUHJbS3CVAO58R95lyBKmzGgYnHJu5p4Zms-uOEU_kiaK4iJWI9y4GeTAsKmIAMRB93uJuHU2aaCgYKAcQSARESFQHGX2MimpSEkjrdbAF7HOTMcJ8pPQ0171";
 
 console.log(`user: ${USER}`);
-console.log(`client_id: ${CLIENT_ID}`);
-console.log(`client_secret: ${CLIENT_SECRET}`);
-console.log(`refresh_token: ${REFRESH_TOKEN}`);
-console.log(`access: ${ACCESS_TOKEN}`);
+console.log(`pass: ${PASS}`)
+// console.log(`client_id: ${CLIENT_ID}`);
+// console.log(`client_secret: ${CLIENT_SECRET}`);
+// console.log(`refresh_token: ${REFRESH_TOKEN}`);
+// console.log(`access: ${ACCESS_TOKEN}`);
 
 const REDIRECT_UI = "https://developers.google.com/oauthplayground";
 
@@ -53,13 +54,13 @@ async function mailSetup() {
         port: 587,
         secure: false,
         auth: {
-            type: "OAuth2",
+            // type: "OAuth2",
             user: USER,
-            // PASS
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
-            refreshToken: REFRESH_TOKEN,
-            accessToken: ACCESS_TOKEN
+            pass: PASS
+            // clientId: CLIENT_ID,
+            // clientSecret: CLIENT_SECRET,
+            // refreshToken: REFRESH_TOKEN,
+            // accessToken: ACCESS_TOKEN
         },
         tls: {
             rejectUnauthorized: false
