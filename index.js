@@ -33,7 +33,12 @@ let transporter;
 async function mailSetup() {
     // const testUser = await createTestAccount();
     // const {user, pass} = testUser;
-    const ACCESS_TOKEN = await oAuth2Client.getAccessToken();
+    const ACCESS_TOKEN = await new Promise((resolve, reject) => {
+        oAuth2Client.getAccessToken((error, token) => {
+            if (error) reject(error);
+            resolve(token);
+        })
+    })
     console.log(`access_token: ${ACCESS_TOKEN}`)
     transporter = createTransport({
         host: 'smtp.gmail.com',
