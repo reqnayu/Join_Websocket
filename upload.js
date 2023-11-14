@@ -59,7 +59,7 @@ async function uploadFile(folderId, file, fileName) {
   await drive.permissions.create({
     fileId: id,
     requestBody: {
-      type: 'any',
+      type: 'anyone',
       role: 'reader'
     }
   });
