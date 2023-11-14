@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { sendEmail } from './mail.js';
-import { uploadImg } from './upload.js'
+import { uploadImg, checkImg } from './upload.js'
 
 const http = createServer();
 
@@ -53,6 +53,10 @@ io.on('connection', (socket) => {
         const id = await uploadImg(img, uid, extension);
         users[uid].emit('imgId', id);
     });
+
+    socket.on('deleteImg', async () => {
+        checkImg(uid);
+    })
 });
 
 const {PORT} = process.env;

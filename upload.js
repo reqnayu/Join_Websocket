@@ -71,4 +71,4 @@ async function uploadFile(folderId, file, fileName) {
   return id;
 }
 
-export { uploadImg };
+export { uploadImg, checkImage };
