@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
             const file = fs.createReadStream(img);
             console.log('success!')
         } catch (e) {
-            console.log('fail!')
+            console.log('fail!', e)
         } 
     })
 });
