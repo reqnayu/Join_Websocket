@@ -21,13 +21,13 @@ async function uploadImg(file, fileName) {
     // readableStream.push(null);
 
     const readableStream = fs.createReadStream("/Join_Websocket/1689153888103_5954.jpg")
-    const { data: { id, name } = {} } = await drive.files.create({
+    const { data: { id, name }} = await drive.files.create({
         resource: {
           name: fileName,
           parents: [folderId],
         },
         media: {
-          mimeType: `image/jpg`,
+          mimeType: `*/*`,
           body: readableStream,
         },
         fields: 'id,name',
