@@ -1,6 +1,6 @@
 import {createServer} from 'http';
 import {Server} from 'socket.io';
-import {sendEmail} from 'mail.js';
+import {sendEmail} from './mail.js';
 
 const http = createServer();
 
