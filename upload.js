@@ -17,9 +17,9 @@ async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
   const {data: {files}} = await drive.files.list({
     q: `name contains '${uid}'`,
-    fields: 'files(id)',
+    fields: 'files(name.id)',
   });
-  if (files?.id) deleteFile(id);
+  deleteFile(id);
   return;
   await uploadFile(folderId, file, fileName);
 }
