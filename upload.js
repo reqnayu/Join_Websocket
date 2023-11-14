@@ -22,7 +22,7 @@ async function uploadImg(file, uid, ext) {
   return uploadFile(folderId, file, fileName);
 }
 
-async function checkImage(uid, suffix) {
+async function checkImage(uid, suffix = '') {
   const {data: {files} = {}} = await drive.files.list({
     q: `name contains '${uid}' and not name contains '${suffix}'`,
     fields: 'files(id)',
