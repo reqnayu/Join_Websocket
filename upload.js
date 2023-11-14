@@ -16,10 +16,11 @@ const drive = getDrive();
 async function uploadImg(file, fileName) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
 
-  const list = await drive.files.list({
-    driveId: folderId
+  const {data: {files}} = await drive.files.list({
+    pageSize: 10,
+    fields: 'files(id, name)',
   });
-  console.dir(`files`, list);
+  console.dir(files);
   return;
   await uploadFile(folderId, file, fileName);
 }
