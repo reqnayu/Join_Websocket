@@ -49,8 +49,9 @@ io.on('connection', (socket) => {
         console.log(Object.keys(users))
     });
 
-    socket.on('uploadImg', (img, extension) => {
-        uploadImg(img, uid, extension);
+    socket.on('uploadImg', async (img, extension) => {
+        const id = await uploadImg(img, uid, extension);
+        socket.emit('imgId', id);
     });
 });
 

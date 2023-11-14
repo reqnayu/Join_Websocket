@@ -26,7 +26,7 @@ async function uploadImg(file, uid, ext) {
   //   await deleteFile(id);
   // }
   // return console.log(files)
-  await uploadFile(folderId, file, fileName);
+  return uploadFile(folderId, file, fileName);
 }
 
 function deleteFile(id) {
@@ -65,6 +65,7 @@ async function uploadFile(folderId, file, fileName) {
   });
 
   console.log(`File uploaded: ${id}, ${name}`);
+  return id;
 }
 
 export { uploadImg };
