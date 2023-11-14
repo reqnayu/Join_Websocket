@@ -19,7 +19,8 @@ async function uploadImg(file, uid, ext) {
     q: `name contains '${uid}'`,
     fields: 'files(id, name)',
   });
-  console.dir("allFiles: ", files);
+  console.log("all files...")
+  console.dir(files);
   return;
   await uploadFile(folderId, file, fileName);
 }
