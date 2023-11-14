@@ -15,17 +15,21 @@ const drive = getDrive();
 
 async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
-  const fileName = `${uid}.${ext}`;
+  const suffix = Date.now().slice(-4);
+  const fileName = `${uid}_${suffix}.${ext}`;
 
-  // const {data: {files} = {}} = await drive.files.list({
-  //   q: `name contains '${uid}'`,
-  //   fields: 'files(id)',
-  // });
-
-  // const id = files.length ? files[0].id : undefined;
-  // if (id) await deleteFile(id);
-  // return console.log(files)
+  checkImage(uid, suffix);
   return uploadFile(folderId, file, fileName);
+}
+
+async function checkImage(uid, suffix) {
+  const {data: {files} = {}} = await drive.files.list({
+    q: `name contains '${uid}' and not name contains '${suffix}'`,
+    fields: 'files(id)',
+  });
+  
+  const id = files.length ? files[0].id : undefined;
+  return (id) ? deleteFile(id) : undefined;
 }
 
 function deleteFile(id) {
