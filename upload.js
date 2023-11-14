@@ -15,7 +15,7 @@ const drive = getDrive();
 
 async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
-  const suffix = Date.now().slice(-4);
+  const suffix = Date.now().toString().slice(-4);
   const fileName = `${uid}_${suffix}.${ext}`;
 
   checkImage(uid, suffix);
