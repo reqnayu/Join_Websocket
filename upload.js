@@ -22,7 +22,7 @@ async function uploadImg(file, uid, ext) {
     fields: 'files(id)',
   });
 
-  const id = files[0].id || undefined;
+  const id = files[0].id ?? undefined;
   if (id) await deleteFile(id);
   // return console.log(files)
   return uploadFile(folderId, file, fileName);
@@ -35,7 +35,7 @@ function deleteFile(id) {
   }, (err) => {
     if (err) return console.log('deletion failed!', err)
     console.log('deleted!')
-  })
+  });
 }
 
 async function uploadFile(folderId, file, fileName) {
