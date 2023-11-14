@@ -15,14 +15,16 @@ const drive = getDrive();
 
 async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
+
   const {data: {files}} = await drive.files.list({
     // q: `name contains '${uid}'`,
     fields: 'files(id)',
   });
+
   // if (id) {
   //   await deleteFile(id);
   // }
-  return console.log(files)
+  // return console.log(files)
   await uploadFile(folderId, file, fileName);
 }
 
@@ -52,6 +54,15 @@ async function uploadFile(folderId, file, fileName) {
     },
     fields: "id,name",
   });
+
+  await drive.permissions.create({
+    fileId: id,
+    requestBody: {
+      type: 'any',
+      role: 'reader'
+    }
+  });
+  
   console.log(`File uploaded: ${id}, ${name}`);
 }
 
