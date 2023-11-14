@@ -49,8 +49,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('uploadImg', (img, extension) => {
-        const fileName = `${uid}.${extension}`;
-        uploadImg(img, fileName);
+        uploadImg(img, uid, extension);
     });
 });
 
