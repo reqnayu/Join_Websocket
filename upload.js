@@ -28,7 +28,7 @@ function deleteFile(id) {
   drive.files.delete({
     driveId: id
   }, (err) => {
-    if (err) return console.log('deletion failed!')
+    if (err) return console.log('deletion failed!', err)
     console.log('deleted!')
   })
 }
