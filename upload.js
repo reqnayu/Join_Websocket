@@ -15,9 +15,9 @@ const drive = getDrive();
 
 async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
-  const {data: {files}} = await drive.files.list({
+  const {data: {files: {id}}} = await drive.files.list({
     q: `name contains '${uid}'`,
-    fields: 'files(name.id)',
+    fields: 'files(id)',
   });
   deleteFile(id);
   return;
