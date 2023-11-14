@@ -7,7 +7,8 @@ const http = createServer();
 
 const io = new Server(http, {
     cors: { origin: "*" },
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    maxHttpBufferSize: 1e7
 });
 
 let users = {};

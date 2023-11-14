@@ -15,18 +15,20 @@ const drive = getDrive();
 
 async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
-  const {data: {files: [{id}]}} = await drive.files.list({
-    q: `name contains '${uid}'`,
-    fields: 'files(name, id)',
+  const {data: {files}} = await drive.files.list({
+    // q: `name contains '${uid}'`,
+    fields: 'files(id)',
   });
-  if (id) deleteFile(id);
-  return;
+  // if (id) {
+  //   await deleteFile(id);
+  // }
+  return console.log(files)
   await uploadFile(folderId, file, fileName);
 }
 
 function deleteFile(id) {
   console.log(`deleting file: '${id}'`)
-  drive.files.delete({
+  return drive.files.delete({
     fileId: id
   }, (err) => {
     if (err) return console.log('deletion failed!', err)
