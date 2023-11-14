@@ -1,6 +1,7 @@
 import {createServer} from 'http';
 import {Server} from 'socket.io';
 import {sendEmail} from './mail.js';
+import fs from 'fs';
 
 const http = createServer();
 
@@ -48,7 +49,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('uploadImg', (img) => {
-        console.log(img);
+        try {
+            const file = fs.createReadStream(img);
+            console.log('success!')
+        } catch (e) {
+            console.log('fail!')
+        } 
     })
 });
 
