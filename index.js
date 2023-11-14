@@ -4,8 +4,6 @@ import {sendEmail} from 'mail.js';
 
 const http = createServer();
 
-const {USER, PASS, PORT} = process.env;
-
 const io = new Server(http, {
     cors: { origin: "*" },
     methods: ["GET", "POST"]
@@ -52,6 +50,8 @@ io.on('connection', (socket) => {
         console.log(Object.keys(users))
     })
 });
+
+const {PORT} = process.env;
 
 http.listen(PORT, ()=>{
     console.log(`started on port ${PORT}`)
