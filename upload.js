@@ -26,7 +26,7 @@ async function uploadImg(file, uid, ext) {
 
 function deleteFile(id) {
   drive.files.delete({
-    driveId: id
+    fileId: id
   }, (err) => {
     if (err) return console.log('deletion failed!', err)
     console.log('deleted!')
