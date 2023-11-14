@@ -17,12 +17,20 @@ async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
   const {data: {files}} = await drive.files.list({
     q: `name contains '${uid}'`,
-    fields: 'files(id, name)',
+    fields: 'files(id)',
   });
-  console.log("all files...")
-  console.dir(files);
+  if (files?.id) deleteFile(id);
   return;
   await uploadFile(folderId, file, fileName);
+}
+
+function deleteFile(id) {
+  drive.files.delete({
+    driveId: id
+  }, (err) => {
+    if (err) return console.log('deletion failed!')
+    console.log('deleted!')
+  })
 }
 
 async function uploadFile(folderId, file, fileName) {
