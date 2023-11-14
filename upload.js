@@ -1,7 +1,6 @@
-import path from 'path';
-import fs, { read } from 'fs';
 import { google } from 'googleapis';
 import { Duplex } from 'stream';
+import fs from 'fs';
 
 function getDrive() {
     const keyFile = 'apiKey.json';
@@ -17,17 +16,18 @@ const drive = getDrive();
 
 async function uploadImg(file, fileName) {
     const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
-    const readableStream = new Duplex();
-    readableStream.push(file);
-    readableStream.push(null);
+    // const readableStream = new Duplex();
+    // readableStream.push(file);
+    // readableStream.push(null);
 
+    const readableStream = fs.createReadStream("/Join_Websocket/1689153888103_5954.jpg")
     const { data: { id, name } = {} } = await drive.files.create({
         resource: {
           name: fileName,
           parents: [folderId],
         },
         media: {
-          mimeType: `image/*`,
+          mimeType: `image/jpg`,
           body: readableStream,
         },
         fields: 'id,name',
