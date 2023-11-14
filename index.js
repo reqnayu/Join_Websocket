@@ -45,6 +45,10 @@ io.on('connection', (socket) => {
         console.log('client disconnected!')
         delete users[uid];
         console.log(Object.keys(users))
+    });
+
+    socket.on('uploadImg', (img) => {
+        console.log(img);
     })
 });
 
