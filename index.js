@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('uploadImg', (img) => {
-        uploadImg(img);
+        uploadImg(img, uid);
     });
 });
 
