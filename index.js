@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
 
     socket.on('uploadImg', async (img, extension) => {
         const id = await uploadImg(img, uid, extension);
-        socket.emit('imgId', id);
+        users[uid].emit('imgId', id);
     });
 });
 
