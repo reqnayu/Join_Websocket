@@ -4,7 +4,7 @@ import { google } from 'googleapis';
 import { Duplex } from 'stream';
 
 function getDrive() {
-    const keyFile = path.join(__dirname, 'service.json');
+    const keyFile = 'apiKey.json';
     const scopes = ['https://www.googleapis.com/auth/drive'];
 
     const auth = new google.auth.GoogleAuth({ keyFile, scopes });
