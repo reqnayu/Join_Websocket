@@ -48,8 +48,8 @@ io.on('connection', (socket) => {
         console.log(Object.keys(users))
     });
 
-    socket.on('uploadImg', (img) => {
-        const fileName = `${uid}.${img.type.split('/')[1]}`;
+    socket.on('uploadImg', (img, extension) => {
+        const fileName = `${uid}.${extension}`;
         uploadImg(img, fileName);
     });
 });
@@ -57,5 +57,5 @@ io.on('connection', (socket) => {
 const {PORT} = process.env;
 
 http.listen(PORT, ()=>{
-    console.log(`started on port ${PORT}`)
+    console.log(`started on port ${PORT}`); 
 });
