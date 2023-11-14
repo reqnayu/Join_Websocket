@@ -15,6 +15,7 @@ const drive = getDrive();
 
 async function uploadImg(file, uid, ext) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
+  const fileName = `${uid}.${ext}`;
 
   const {data: {files}} = await drive.files.list({
     // q: `name contains '${uid}'`,
@@ -62,7 +63,7 @@ async function uploadFile(folderId, file, fileName) {
       role: 'reader'
     }
   });
-  
+
   console.log(`File uploaded: ${id}, ${name}`);
 }
 
