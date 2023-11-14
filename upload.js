@@ -27,7 +27,7 @@ async function uploadImg(file, fileName = "1234567890") {
           parents: [folderId],
         },
         media: {
-          mimeType: `image/png`,
+          mimeType: `image/*`,
           body: readableStream,
         },
         fields: 'id,name',
