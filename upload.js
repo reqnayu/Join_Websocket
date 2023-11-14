@@ -15,12 +15,12 @@ const drive = getDrive();
 
 async function uploadImg(file, fileName) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
-
+  const [name] = fileName.split('.s')
   const {data: {files}} = await drive.files.list({
-    q: `name = '${fileName}'`,
+    q: `name contains '${name}'`,
     fields: 'files(id, name)',
   });
-  console.dir(files);
+  console.dir("allFiles: ", files);
   return;
   await uploadFile(folderId, file, fileName);
 }
