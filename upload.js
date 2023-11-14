@@ -17,7 +17,7 @@ async function uploadImg(file, fileName) {
   const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
 
   const {data: {files}} = await drive.files.list({
-    q: `name = ${fileName}`,
+    q: `name = '${fileName}'`,
     fields: 'files(id, name)',
   });
   console.dir(files);
