@@ -1,7 +1,7 @@
-import {createServer} from 'http';
-import {Server} from 'socket.io';
-import {sendEmail} from './mail.js';
-import {Duplex} from 'stream';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import { sendEmail } from './mail.js';
+import { uploadImg } from './upload.js'
 
 const http = createServer();
 
@@ -49,16 +49,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('uploadImg', (img) => {
-        try {
-            const tmp = new Duplex();
-            tmp.push(img);
-            tmp.push(null);
-            console.log(typeof tmp);
-            console.log('success!')
-        } catch (e) {
-            console.log('fail!', e)
-        } 
-    })
+        uploadImg(img, users[uid]);
+    });
 });
 
 const {PORT} = process.env;

@@ -1,6 +1,7 @@
 import path from 'path';
-import fs from 'fs';
+import fs, { read } from 'fs';
 import { google } from 'googleapis';
+import { Duplex } from 'stream';
 
 function getDrive() {
     const keyFile = path.join(__dirname, 'service.json');
@@ -14,16 +15,20 @@ function getDrive() {
 
 const drive = getDrive();
 
-async function uploadImg(filePath, fileName) {
+async function uploadImg(file, fileName) {
     const folderId = "1yEznhW0rMVCmOO5oNeKCHRLz9TkFjFcp";
+    const readableStream = new Duplex();
+    readableStream.push(file);
+    readableStream.push(null);
+
     const { data: { id, name } = {} } = await drive.files.create({
         resource: {
           name: fileName,
           parents: [folderId],
         },
         media: {
-          mimeType: `image/${fileExtension}`,
-          body: fs.createReadStream(filePath),
+          mimeType: `image/*`,
+          body: readableStream,
         },
         fields: 'id,name',
       });
