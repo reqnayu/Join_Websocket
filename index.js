@@ -11,9 +11,6 @@ const io = new Server(http, {
 
 let users = {};
 
-
-
-
 io.on('connection', (socket) => {
     const uid = socket.handshake.query.uid;
     if (!uid) return;
