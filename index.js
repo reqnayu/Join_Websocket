@@ -1,6 +1,7 @@
 import {createServer} from 'http';
-import {createTransport} from 'nodemailer';
 import {Server} from 'socket.io';
+import {sendEmail} from 'mail.js';
+
 const http = createServer();
 
 const {USER, PASS, PORT} = process.env;
@@ -12,39 +13,7 @@ const io = new Server(http, {
 
 let users = {};
 
-const transporter = createTransport({
-    service: "gmail",
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-        user: USER,
-        pass: PASS
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
 
-async function sendEmail({to, subject, html}) {
-    
-    const mailOptions = {
-        from: `Join <${USER}>`,
-        to,
-        subject,
-        html
-    }
-    return new Promise((resolve, reject) => {
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                reject(error);
-            }
-            resolve()
-        });
-
-    })
-    
-}
 
 
 io.on('connection', (socket) => {
