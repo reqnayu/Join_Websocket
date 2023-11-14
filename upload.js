@@ -19,6 +19,7 @@ async function uploadImg(file, uid, ext) {
     q: `name contains '${uid}'`,
     fields: 'files(name, id)',
   });
+  console.dir('files', files);
   if (files?.id) deleteFile(files.id);
   return;
   await uploadFile(folderId, file, fileName);
