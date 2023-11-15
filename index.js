@@ -55,6 +55,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('deleteImg', async () => {
+        console.log('checking img')
         checkImage(uid);
     })
 });
