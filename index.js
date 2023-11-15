@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { sendEmail } from './mail.js';
-import { uploadImg, checkImg } from './upload.js'
+import { uploadImg, checkImage } from './upload.js'
 
 const http = createServer();
 
