@@ -35,7 +35,8 @@ io.on('connection', (socket) => {
 
     socket.on('mail', async (mailOptions) => {
         try {
-            await sendEmail(mailOptions);
+            const response = await sendEmail(mailOptions);
+            console.log(response)
             users[uid].emit('mailSent');
         } catch(e) {
             users[uid].emit('mailFailed');

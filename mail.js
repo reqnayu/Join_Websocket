@@ -29,8 +29,7 @@ async function sendEmail({to, subject, html}) {
             if (error) {
                 reject(error);
             }
-            console.log(info.response)
-            resolve()
+            resolve(info.response)
         });
 
     })
