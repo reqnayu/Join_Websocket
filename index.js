@@ -51,6 +51,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('uploadImg', async (img, extension) => {
+        console.log('uploading img')
         const id = await uploadImg(img, uid, extension);
         users[uid].emit('imgId', id);
     });
@@ -61,7 +62,7 @@ io.on('connection', (socket) => {
     })
 });
 
-const {PORT} = process.env;
+const PORT = process.env.PORT || 10000;
 
 http.listen(PORT, ()=>{
     console.log(`started on port ${PORT}`); 
