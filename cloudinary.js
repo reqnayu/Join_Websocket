@@ -2,7 +2,7 @@ import { v2 as cloudinary } from 'cloudinary'
 
 const { cloud_name, api_key, api_secret } = process.env.CLOUDINARY
 
-console.log(process.env.CLOUDINARY)
+console.log(cloud_name, api_key, api_secret)
 
 // cloudinary.config({
 //     secure: true,
