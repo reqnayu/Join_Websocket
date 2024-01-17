@@ -2,14 +2,6 @@ import { v2 as cloudinary } from 'cloudinary'
 
 const { cloud_name, api_key, api_secret } = JSON.parse(process.env.CLOUDINARY)
 
-console.log(cloud_name, api_key, api_secret)
-
-// cloudinary.config({
-//     secure: true,
-//     cloud_name: "dxoi3kxpv",
-//     api_key: "929325991324254",
-//     api_secret: "4zPQZiuNeY3NFybOHP4YlrkB0nY"
-// })
 cloudinary.config({ secure: true, cloud_name, api_key, api_secret })
 
 export async function uploadImg(imgBuffer, uid) {
