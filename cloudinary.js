@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary'
 
-const { cloud_name, api_key, api_secret } = process.env.CLOUDINARY
+const { cloud_name, api_key, api_secret } = JSON.parse(process.env.CLOUDINARY)
 
 console.log(cloud_name, api_key, api_secret)
 
