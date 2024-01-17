@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { sendEmail } from './mail.js';
-import { uploadImg, checkImage } from './upload.js'
+import { uploadImg, deleteImg } from './cloudinary.js';
 
 const http = createServer();
 
@@ -50,15 +50,15 @@ io.on('connection', (socket) => {
         console.log(Object.keys(users))
     });
 
-    socket.on('uploadImg', async (img, extension) => {
+    socket.on('uploadImg', async (imgBuffer) => {
         console.log('uploading img')
-        const id = await uploadImg(img, uid, extension);
-        users[uid].emit('imgId', id);
+        const imgUrl = await uploadImg(imgBuffer, uid);
+        users[uid].emit('imgURL', imgUrl);
     });
 
     socket.on('deleteImg', async () => {
         console.log('checking img')
-        checkImage(uid);
+        deleteImg(uid);
     })
 });
 
