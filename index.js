@@ -27,8 +27,9 @@ io.on('connection', (socket) => {
         if (!to) return console.log('no recipients')
         to.forEach(recipientId => {
             if (users[recipientId]) {
+                if(!users.hasOwnProperty(recipientId)) return;
                 console.log(`sending notification to ${recipientId}!`);
-                if (users.hasOwnProperty(recipientId)) users[recipientId].emit('notification');
+                users[recipientId].emit('notification');
             }   
         });
     });
